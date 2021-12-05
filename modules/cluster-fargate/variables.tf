@@ -13,3 +13,38 @@ variable "aws_secret_key" {
   type        = string
 }
 
+variable "cluster_name" {
+  type        = string
+}
+
+variable "capacity_providers" {
+  type        = string
+}
+
+variable "env" {
+  type        = string
+}
+
+variable "cluster_name" {
+  type        = string
+}
+
+variable "capacity_providers" {
+  type        = string
+}
+
+variable "container_name" {
+  type        = string
+}
+
+variable "container_port" {
+  type        = string
+}
+
+variable "container_port" {
+  type        = string
+}
+
+variable "subnets"       { 
+  type        = list(string) 
+}
