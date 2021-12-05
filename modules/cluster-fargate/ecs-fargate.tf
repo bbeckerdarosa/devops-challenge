@@ -10,17 +10,17 @@ resource "aws_ecs_cluster" "cluster" {
 }
 
 resource "aws_ecs_task_definition" "application_version" {
-  family                   = "application-version"
-  network_mode             = "awsvpc"
-  requires_compatibilities = ["FARGATE"]
+  family                   = var.container_name
+  network_mode             = var.network_mode
+  requires_compatibilities = ["${var.launch_type}"]
 
   container_definitions = <<TASK_DEFINITION
 [
   {
-    "image": "bbeckerdarosa/application-version",
+    "image": "bbeckerdarosa/fargate-application-version",
     "cpu": 10,
     "memory": 512,
-    "name": "application-version",
+    "name": "fargate-application-version",
     "networkMode": "awsvpc",
     "portMappings": [
       {
@@ -37,7 +37,7 @@ resource "aws_ecs_service" "service" {
   name            = var.cluster_name-service-var.env
   cluster         = aws_ecs_cluster.cluster.id
   task_definition = aws_ecs_task_definition.application_version.arn
-  launch_type     = "FARGATE"
+  launch_type     = var.launch_type
 
   network_configuration {
     security_groups = [aws_security_group.application_sg.id]
