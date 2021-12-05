@@ -18,6 +18,8 @@ module "cluster-fargate" {
   region                = "us-east-1"
   cluster_name          = "fargate"
   capacity_providers    = "FARGATE"
+  launch_type           = "FARGATE"
   container_name        = "fargate-application-version"
   container_port        = 3000
+  network_mode          = "awsvpc"
 }
