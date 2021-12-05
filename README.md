@@ -9,6 +9,8 @@ DevOps project to build an infrastructure using terraform and Setup in AWS ECS F
       - [Pre-requisites](#pre-requisites)
   - [Install Instructions](#instal-instructions)
   - [Usage](#usage)
+      - [Instructions to run the Application](#instructions-run-app)
+      - [Instructions to run Infrastructure Project](#instructions-run-infrastructure-project)
   - [Setup](#setup)
   - [Requirements to Production](#requirements-to-production)
   - [Considerations](#Considerations)
@@ -44,6 +46,26 @@ What was need to run the project:
 ## Setup
 
 ## Usage
+### Instructions to run the Application
+
+Steps to run the application:
+
+- Clone in project:
+```
+git clone git@gitlab.com:bbeckerdarosa/devops-challenge.git
+```
+
+- Access the project directory and run the application using docker:
+```
+cd devops-challenge/
+
+docker build -t <user_docker_hub>/fargate-application-version .
+
+docker run --rm -it -p 5000:5000 <user_docker_hub>/fargate-application-version
+```
+
+### Instructions to run Infrastructure Project
+
 
 ## Requirements to Production
 
