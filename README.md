@@ -41,6 +41,8 @@ What was need to run the project:
 - Terraform v1.0.11
 - AWS account
 
+- Please note that you will need the *access key* and *secret key* to your AWS account to run this project. 
+
 ## Install Instructions
 
 ## Setup
@@ -65,6 +67,44 @@ docker run --rm -it -p 5000:5000 <user_docker_hub>/fargate-application-version
 ```
 
 ### Instructions to run Infrastructure Project
+
+Steps to run the infrastructure with terraform:
+
+- Clone in project:
+```
+git clone git@gitlab.com:bbeckerdarosa/devops-challenge.git
+```
+
+- Access the project directory and access the stage/ and cluster-fargate/ folder :
+```
+cd devops-challenge/stage/cluster-fargate/
+```
+
+- The file main.tf will be appear to you. To run and initialize terraform:
+
+```
+terraform init
+```
+
+- The follow next command will be:
+
+```
+terraform plan
+```
+
+In this moment, in your terminal, will appear to enter the values of *access key* and *secret key* (previously noted), list of subnets and VPC id from your AWS account.
+
+If everything is right, the output of the ```terraform plan``` command will look something like this:
+
+![output-plan](images/screenshot_output_plan.png)
+
+- And you can proceed with the next command to apply the creations to the aws:
+
+```
+terraform apply
+```
+
+As with the plan command, you will have to enter the values again of *access key* and *secret key* (previously noted), list of subnets and VPC id from your AWS account.
 
 
 ## Requirements to Production
