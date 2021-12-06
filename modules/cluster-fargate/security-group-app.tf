@@ -1,5 +1,5 @@
 resource "aws_security_group" "application_sg" {
-  name        = var.cluster_name-var.env-alb
+  name        = "${var.cluster_name}-${var.env}-app"
   vpc_id      = var.vpc_id
 
   ingress {
