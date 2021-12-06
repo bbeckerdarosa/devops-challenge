@@ -1,7 +1,5 @@
 resource "aws_ecs_cluster" "cluster" {
-  name = var.cluster_name-cluster-var.env
-  capacity_providers = var.capacity_providers
-
+  name = "${var.cluster_name}-cluster-${var.env}"
 //CloudWatch Container Insights to collect, aggregate, and summarize metrics and logs.
   setting {
     name  = "containerInsights"
@@ -34,7 +32,7 @@ TASK_DEFINITION
 }
 
 resource "aws_ecs_service" "service" {
-  name            = var.cluster_name-service-var.env
+  name            = "${var.cluster_name}-service-${var.env}"
   cluster         = aws_ecs_cluster.cluster.id
   task_definition = aws_ecs_task_definition.application_version.arn
   launch_type     = var.launch_type
