@@ -36,3 +36,11 @@ variable "subnets"       {
   description = "Please, insert the list of subnets from your VCP id. Ex: [subnet_id1, subnet_id2, subnet_id3]"
   type        = list(string)
 }
+
+variable "cpu" {
+  type        = string
+}
+
+variable "memory" {
+  type        = string
+}

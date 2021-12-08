@@ -36,4 +36,6 @@ module "cluster-fargate" {
   network_mode          = "awsvpc"
   vpc_id                = var.vpc_id
   subnets               = var.subnets
+  cpu                   = 256
+  memory                = 512
 }

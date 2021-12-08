@@ -11,12 +11,14 @@ resource "aws_ecs_task_definition" "application_version" {
   family                   = var.container_name
   network_mode             = var.network_mode
   requires_compatibilities = ["${var.launch_type}"]
+  cpu                      = var.cpu
+  memory                   = var.memory
 
   container_definitions = <<TASK_DEFINITION
 [
   {
     "image": "bbeckerdarosa/fargate-application-version",
-    "cpu": 10,
+    "cpu": 256,
     "memory": 512,
     "name": "fargate-application-version",
     "networkMode": "awsvpc",
