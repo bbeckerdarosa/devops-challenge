@@ -17,15 +17,15 @@ resource "aws_ecs_task_definition" "application_version" {
   container_definitions = <<TASK_DEFINITION
 [
   {
-    "image": "${var.container_image}",
-    "cpu": ${var.cpu},
-    "memory": ${var.cpu},
-    "name": ${var.container_name},
-    "networkMode": ${var.network_mode},
+    "image": "bbeckerdarosa/fargate-application-version",
+    "cpu": 256,
+    "memory": 512,
+    "name": "fargate-application-version",
+    "networkMode": "awsvpc",
     "portMappings": [
       {
-        "containerPort": ${var.container_port},
-        "hostPort": ${var.container_port}
+        "containerPort": 3000,
+        "hostPort": 3000
       }
     ]
   }
