@@ -17,15 +17,15 @@ resource "aws_ecs_task_definition" "application_version" {
   container_definitions = <<TASK_DEFINITION
 [
   {
-    "image": "bbeckerdarosa/fargate-application-version",
-    "cpu": 256,
-    "memory": 512,
-    "name": "fargate-application-version",
-    "networkMode": "awsvpc",
+    "image": "${var.container_image}",
+    "cpu": ${var.cpu},
+    "memory": ${var.cpu},
+    "name": ${var.container_name},
+    "networkMode": ${var.network_mode},
     "portMappings": [
       {
-        "containerPort": 3000,
-        "hostPort": 3000
+        "containerPort": ${var.container_port},
+        "hostPort": ${var.container_port}
       }
     ]
   }
@@ -41,8 +41,9 @@ resource "aws_ecs_service" "service" {
   desired_count   = var.desired_count
 
   network_configuration {
-    security_groups = [aws_security_group.application_sg.id]
-    subnets         = var.subnets
+    security_groups  = [aws_security_group.application_sg.id]
+    subnets          = aws_subnet.private.*.id
+    assign_public_ip = true
   }
 
   load_balancer {

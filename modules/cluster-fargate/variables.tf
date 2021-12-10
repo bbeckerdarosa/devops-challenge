@@ -27,16 +27,6 @@ variable "network_mode" {
   type        = string
 }
 
-variable "vpc_id" {
-  description = "Please, insert VPC id from your AWS account"
-  type        = string
-}
-
-variable "subnets"       { 
-  description = "Please, insert the list of subnets from your VCP id. Ex: [subnet_id1, subnet_id2, subnet_id3]"
-  type        = list(string)
-}
-
 variable "cpu" {
   type        = string
 }
@@ -46,5 +36,9 @@ variable "memory" {
 }
 
 variable "desired_count" {
+  type        = string
+}
+
+variable "container_image" {
   type        = string
 }
