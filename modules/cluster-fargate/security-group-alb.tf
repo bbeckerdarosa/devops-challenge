@@ -1,6 +1,6 @@
 resource "aws_security_group" "application_alb_sg" {
   name        = "${var.cluster_name}-${var.env}-alb"
-  vpc_id      = var.vpc_id
+  vpc_id      = aws_vpc.new.id
 
   ingress {
     protocol    = "tcp"
