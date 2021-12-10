@@ -10,8 +10,11 @@ resource "aws_lb_target_group" "application_tg" {
   port        = 3000
   protocol    = "HTTP"
   target_type = "ip"
-  health_check = "/version"
   vpc_id      = aws_vpc.new.id
+
+  health_check {
+    path      = "/version"
+  }
 }
 
 resource "aws_lb_listener" "application_listener" {
