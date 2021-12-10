@@ -2,22 +2,22 @@
 
 DevOps project to build an infrastructure using terraform and Setup in AWS ECS Fargate.
 
-## Summary
-
+- [DevOps Challenge](#devops-challenge)
   - [Introduction](#introduction)
     - [Principal resources used](#principal-resources-used)
     - [Pre-requisites](#pre-requisites)
-  - [Install Instructions](#install-instructions)
-  - [Setup](#setup)
   - [Usage](#usage)
     - [Instructions to run the Application](#instructions-to-run-the-application)
     - [Instructions to run Infrastructure Project](#instructions-to-run-infrastructure-project)
+    - [How to access the Application](#how-to-access-the-application)
+    - [Clean up Infrastructure](#clean-up-infrastructure)
   - [Requirements to Production](#requirements-to-production)
-  - [Considerations](#considerations)
   - [Potential Improvements](#potential-improvements)
+    - [For the Python application](#for-the-python-application)
+    - [For the ECS Fargate Service using Terraform](#for-the-ecs-fargate-service-using-terraform)
+  - [Considerations](#considerations)
   - [Author](#author)
   - [License](#license)
-
 ## Introduction
 
 This section describes the dependencies used in the application and the infrastructure, instructions on how to start the project, setup, and configuration of the environment for deployment.
@@ -32,7 +32,7 @@ This section describes the dependencies used in the application and the infrastr
 
 ### Pre-requisites
 
-What was need to run the project:
+What was needed to run the project:
 
 - Python version 3.9.9
 - Git installed
@@ -42,11 +42,7 @@ What was need to run the project:
 - AWS account
 
 - Please note that you will need the *access key* and *secret key* to your AWS account to run this project. 
-
-## Install Instructions
-
-## Setup
-
+  
 ## Usage
 ### Instructions to run the Application
 
@@ -92,7 +88,7 @@ terraform init
 terraform plan
 ```
 
-In this moment, in your terminal, will appear to enter the values of *access key* and *secret key* (previously noted), list of subnets and VPC id from your AWS account.
+In this moment, in your terminal, will appear to enter the values of *access key* and *secret key* (previously noted) from your AWS account.
 
 If everything is right, the output of the ```terraform plan``` command will look something like this:
 
@@ -104,14 +100,53 @@ If everything is right, the output of the ```terraform plan``` command will look
 terraform apply
 ```
 
-As with the plan command, you will have to enter the values again of *access key* and *secret key* (previously noted), list of subnets and VPC id from your AWS account.
+As with the plan command, you will have to enter the values again of *access key* and *secret key* (previously noted) from your AWS account.
 
+### How to access the Application
+
+- In the terminal, at the end of running the terraform apply command, an output will be shown. This output is the load balancer DNS that you will need to access the application. An output like this should be shown:
+  
+![output-lb](images/screenshot_output_lb.png)
+
+- To access the application, go to your preferred browser and enter:
+
+```http://<output_fargate_alb_dns_name>/version```
+
+### Clean up Infrastructure
+
+- To clean up/destroy the entire infrastructure you have created, you only need to type the command below:
+
+```
+terraform destroy
+```
+
+- At this point you will have to re-enter the *access key* and *secret key* values (previously noted) and just wait for the destroy to complete
 
 ## Requirements to Production
 
-## Considerations
-
+In order to scale-up in production the application in the ECS Fargate service, we could create a folder prod/cluster-fargate on the root of the project within this folder prod/cluster-fargate we’d get a main.tf file.
+ 
+We could simply copy the main.tf from the folder stage/cluster-fargate e paste within the new production structure. 
+ 
+Having the main.tf file contained in the prod/cluster-fargate structure, we would have to replace the variables within this file according to what we expect putting in production.
+ 
 ## Potential Improvements
+### For the Python application
+ 
+- The application was created to print text on the web. No logic was used for the version change according to the application execution. The first improvement that would have to be done is creating the logic to use application versioning showing the updated version as a variable. 
+ 
+- We would have to create a Python script that’d have a variable called VERSION and this variable would be increased so for each execution the value would be changed. Then, We could do the import of this variable inside the application. 
+ 
+### For the ECS Fargate Service using Terraform
+ 
+- With the application working, we would create a route53 resource to the application so it would be redirected via DNS and not accessed by application load balancer dns.
+ 
+- Last but not least, tests would be done showing zero downtime by doing whatever updates in the application. 
+ 
+## Considerations
+ 
+- Terraform module created to be reusable in the future environment.
+- Value of the variables access and secret keys are requested by running the terraform plan/apply.
 
 ## Author
 
@@ -123,3 +158,5 @@ As with the plan command, you will have to enter the values again of *access key
 </a>
 
 ## License
+
+This project fas MIT License - See the [LICENSE.md](LICENSE.md) file for more details.
