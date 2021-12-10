@@ -38,4 +38,9 @@ module "cluster-fargate" {
   subnets               = var.subnets
   cpu                   = 256
   memory                = 512
+  desired_count         = 1
+}
+
+output "fargate_alb_dns_name" {
+  value = "${module.cluster-fargate.fargate_alb_dns_name}"
 }
