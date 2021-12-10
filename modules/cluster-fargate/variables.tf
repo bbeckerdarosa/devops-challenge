@@ -44,3 +44,7 @@ variable "cpu" {
 variable "memory" {
   type        = string
 }
+
+variable "desired_count" {
+  type        = string
+}

@@ -38,6 +38,7 @@ resource "aws_ecs_service" "service" {
   cluster         = aws_ecs_cluster.cluster.id
   task_definition = aws_ecs_task_definition.application_version.arn
   launch_type     = var.launch_type
+  desired_count   = var.desired_count
 
   network_configuration {
     security_groups = [aws_security_group.application_sg.id]
@@ -48,6 +49,11 @@ resource "aws_ecs_service" "service" {
     target_group_arn = aws_lb_target_group.application_tg.arn
     container_name   = var.container_name
     container_port   = var.container_port
+  }
+
+  deployment_circuit_breaker {
+    enable   = true
+    rollback = true
   }
 
   depends_on = [aws_lb_listener.application_listener]
