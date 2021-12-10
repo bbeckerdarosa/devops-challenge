@@ -1,6 +1,6 @@
 resource "aws_security_group" "application_sg" {
   name        = "${var.cluster_name}-${var.env}-app"
-  vpc_id      = var.vpc_id
+  vpc_id      = aws_vpc.new.id
 
   ingress {
     protocol        = "tcp"
