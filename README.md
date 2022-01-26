@@ -140,8 +140,10 @@ Having the main.tf file contained in the prod/cluster-fargate structure, we woul
 ### For the ECS Fargate Service using Terraform
  
 - With the application working, we would create a route53 resource to the application so it would be redirected via DNS and not accessed by application load balancer dns.
- 
-- Last but not least, tests would be done showing zero downtime by doing whatever updates in the application. 
+
+ - Change the TASK_DEFINITIONS json values in the ecs-fargate.tf file to use variables, or set the container_definitions parameter to fetch the json from a file in the folder stage/cluster-fargate, for example.
+
+ - Last but not least, tests would be done showing zero downtime by doing whatever updates in the application.
  
 ## Considerations
  
